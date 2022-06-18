@@ -8,6 +8,8 @@ BEGIN
     IF 
         NEW.super_categoria IN (SELECT super_categoria FROM super_categoria) OR
         NEW.categoria IN (SELECT categoria FROM categoria)
+        
+        NEW.categoria = NEW.super_categoria
     THEN
         RAISE EXCEPTION 'Categoria % nao pode conter-se a si propria!';
     END IF;
