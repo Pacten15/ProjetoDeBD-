@@ -107,7 +107,7 @@ CREATE TABLE planograma (
 CREATE TABLE retalhista (
     tin SERIAL,
     name VARCHAR(255),
-    UNIQUE(name) -- RI-RE7
+    UNIQUE(name), -- RI-RE7
     PRIMARY KEY (tin));
 --
 --
