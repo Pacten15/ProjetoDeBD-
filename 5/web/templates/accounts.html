@@ -14,14 +14,18 @@
         </thead>
         <tbody>
             {% for record in cursor %}
-            <tr>
-                <td>{{ record[0] }}</td>
-            </tr>
+                <tr>
+                    <td>{{ record[0] }}</td>
+                    <td>{{ record[1] }}</td>
+                    <td>{{ record[2] }}</td>
+                    <td><a href="balance?account_number={{ record[0] }}">Alterar
+                    saldo</a></td>
+                </tr>
             {% endfor %}
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 {% else %}
-    <p> Erro: ao obter dados da base de dados!</p>
+    <p> Erro: não foi possível obter dados da base de dados!</p>
 {% endif %}
 </body>
 </html>
