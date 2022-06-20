@@ -38,6 +38,7 @@ INSERT INTO produto VALUES(1111111111111, 'categoria simples 1', 'descricao 1');
 INSERT INTO produto VALUES(2222222222222, 'super categoria 2',   'descricao 2');
 INSERT INTO produto VALUES(3333333333333, 'super categoria 3', 'descricao 3');
 
+
 DELETE FROM tem_categoria;
 INSERT INTO tem_categoria VALUES(1111111111111, 'categoria simples 1');
 INSERT INTO tem_categoria VALUES(2222222222222, 'super categoria 2');
@@ -60,12 +61,12 @@ INSERT INTO instalada_em VALUES(3, 'fabricante 3', 'ponto de retalho 3');
 INSERT INTO prateleira VALUES(1, 1, 'fabricante 1', 1.1, 'categoria simples 1');
 INSERT INTO prateleira VALUES(2, 2, 'fabricante 2', 2.2, 'super categoria 2');
 INSERT INTO prateleira VALUES(3, 3, 'fabricante 3', 3.3, 'super categoria 3');
-INSERT INTO prateleira VALUES(3, 2, 'fabricante 2', 3.7, 'super categoria 3');
+
 
 INSERT INTO planograma VALUES(1111111111111, 1, 1, 'fabricante 1', 1, 1, 'loc 1');
 INSERT INTO planograma VALUES(2222222222222, 2, 2, 'fabricante 2', 2, 2, 'loc 2');
 INSERT INTO planograma VALUES(3333333333333, 3, 3, 'fabricante 3', 3, 3, 'loc 3');
-INSERT INTO planograma VALUES(3333333333333, 3, 2, 'fabricante 2', 4, 5, 'loc 2');
+
 
 ALTER SEQUENCE retalhista_tin_seq RESTART WITH 1; /* isto é estupido */
 INSERT INTO retalhista VALUES(DEFAULT /* 1 */, 'retalhista 1');
@@ -80,10 +81,7 @@ INSERT INTO evento_reposicao VALUES(1111111111111, 1, 1, 'fabricante 1', '2000-0
 INSERT INTO evento_reposicao VALUES(2222222222222, 2, 2, 'fabricante 2', '2000-02-03', 2, 2);
 INSERT INTO evento_reposicao VALUES(3333333333333, 3, 3, 'fabricante 3', '2000-03-02', 3, 3);
 
-/*vai dar trigger*/
-INSERT INTO evento_reposicao VALUES(3333333333333, 3, 3, 'fabricante 3', '2000-03-02', 4, 3);
 
-INSERT INTO evento_reposicao VALUES(3333333333333, 3, 2, 'fabricante 2', '2000-03-02', 4, 3);
 
-/*vai dar trigger*/
-INSERT INTO evento_reposicao VALUES(3333333333333, 3, 2, 'fabricante 2', '2000-03-02', 6, 3);
+
+

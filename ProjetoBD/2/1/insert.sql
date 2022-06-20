@@ -1,0 +1,1 @@
+INSERT INTO tem_outra VALUES('super categoria 3', 'super categoria 3');
