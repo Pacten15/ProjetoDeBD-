@@ -1,0 +1,3 @@
+-- dev-app-(b)
+-- Inserir e remover um retalhista, com todas suas as responsabilidades de reposições de produtos, 
+-- garantindo que esta operação seja atómica
