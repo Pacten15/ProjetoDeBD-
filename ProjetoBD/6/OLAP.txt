@@ -1,1 +1,6 @@
-
+SELECT dia_semana, concelho, unidades
+FROM vendas
+WHERE dia_mes > date_inf
+AND dia_mes < date_sup
+GROUP BY
+ROLLUP (dia_semana, concelho);
