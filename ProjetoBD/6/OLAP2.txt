@@ -1,0 +1,5 @@
+SELECT concelho, categoria, dia_semana, unidades
+FROM vendas
+WHERE distrito = Lisboa
+GROUP BY
+ROLLUP (concelho,categoria, dia_semana);
