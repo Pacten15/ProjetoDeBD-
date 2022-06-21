@@ -6,10 +6,10 @@ import psycopg2
 import psycopg2.extras
 
 ## SGBD configs
-DB_HOST = "localhost"
-DB_USER = "postgres"
+DB_HOST = "db.tecnico.ulisboa.pt"
+DB_USER = "ist199265"
 DB_DATABASE = DB_USER
-DB_PASSWORD = "1234"
+DB_PASSWORD = "xafn9934"
 DB_CONNECTION_STRING = "host=%s dbname=%s user=%s password=%s" % (
     DB_HOST,
     DB_DATABASE,

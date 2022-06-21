@@ -1,8 +1,8 @@
 CREATE VIEW vendas(ean, cat, ano, trimestre, mes, dia_semana, distrito, concelho, unidades)
-AS SELECT b.ean, cat, EXTRACT(YEAR FROM instante), EXTRACT(QUARTER FROM instante), EXTRACT(MONTH FROM instante),EXTRACT(DAYOFWEEK FROM instante), distrito, concelho, a.unidades
-FROM evento_reposicao a, produto b, planograma c, instalada_em d, ponto_de_retalho e
+AS 
+SELECT ean, cat, EXTRACT(YEAR FROM instante), EXTRACT(QUARTER FROM instante), EXTRACT(MONTH FROM instante), DAYOFWEEK(instante), distrito, concelho, unidades
+FROM evento_reposicao a, produto b, instalada_em c, ponto_de_retalho d
 WHERE a.ean=b.ean
-AND b.ean = c.ean
-AND c.num_serie=d.num_serie
-AND c.fabricante=d.fabricante
-AND d.local = e.nome;
+AND b.num_serie=c.num_serie
+AND b.fabricante=c.fabricante
+AND c.local = d.nome;
