@@ -1,6 +1,6 @@
 SELECT dia_semana, concelho, unidades
 FROM vendas
-WHERE dia_mes > date_inf
-AND dia_mes < date_sup
+WHERE dia_mes >= 2000-01-01
+AND dia_mes < 2000-03-03
 GROUP BY
-ROLLUP (dia_semana, concelho);
+ROLLUP (dia_semana, concelho, unidades);
