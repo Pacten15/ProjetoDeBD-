@@ -20,20 +20,13 @@ DB_CONNECTION_STRING = "host=%s dbname=%s user=%s password=%s" % (
 app = Flask(__name__)
 
 @app.route("/")
-def list_categorias1():
+def list_home():
     dbConn = None
     cursor = None
     try:
-        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
-        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        query = "SELECT * FROM categoria;"
-        cursor.execute(query)
-        return render_template("index.html", cursor=cursor)
+        return render_template("index.html")
     except Exception as e:
-        return str(e)  # Renders a page with the error.
-    finally:
-        cursor.close()
-        dbConn.close()
+        return str(e)
 
 
 #a)
@@ -179,7 +172,7 @@ def retalhistas_remove():
 #c
 #Listar todos os eventos de reposição de uma IVM, apresentando o número de unidades repostas por categoria de produto 
 
-@app.route("/IVM")
+@app.route("/ivms")
 def list_ivm():
     dbConn = None
     cursor = None
@@ -195,8 +188,7 @@ def list_ivm():
         cursor.close()
         dbConn.close()
 
-
-@app.route("/ivm-evento-de-reposicao")
+@app.route("/ivm-evento-reposicao")
 def ivm_repo_event():
     dbConn = None
     cursor = None
@@ -226,14 +218,52 @@ def ivm_repo_event_overview():
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         params = request.args
         num_serie_ivm = params.get('num_serie')
-        num_serie_ivm = params.get('num_serie')
         query = "SELECT cat, SUM(unidades)\
-                 FROM evento_reposicao natural join produto\
-                 WHERE num_serie = %d \
-                 GROUP BY cat;"
+             FROM evento_reposicao natural join produto\
+             WHERE num_serie = %s GROUP BY cat;"
         data = (num_serie_ivm)
         cursor.execute(query, data)
         return render_template("ivm-evento-reposicao-overview.html",cursor=cursor)
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+        dbConn.close()
+
+#
+# (d)
+# Listar todas as sub-categorias de uma super-categoria, a todos os níveis de profundidade.
+#
+
+@app.route("/sub-categorias")
+def list_sub_categorias():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        query = "SELECT * FROM super_categoria;"
+        cursor.execute(query)
+        return render_template("sub-categorias.html", cursor=cursor)
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+        dbConn.close()
+
+@app.route("/sub-categorias-deepened")
+def list_sub_categorias_deepened():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        params = request.args
+        to_deepen = params.get('to_deepen')
+        query = "SELECT categoria AS sub_categoria FROM tem_outra WHERE super_categoria = '{s}';".format(s=to_deepen)
+        data = (to_deepen)
+        cursor.execute(query, data)
+        return render_template("sub-categorias-deepened.html", cursor=cursor)
     except Exception as e:
         return str(e)
     finally:

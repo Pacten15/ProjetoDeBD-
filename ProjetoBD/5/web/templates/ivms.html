@@ -18,12 +18,13 @@
             <tr>
                 <td>{{ record[0] }}</td>
                 <td>{{ record[1] }}</td>
-                <td><a href="ivm-evento-de-reposicao?num_serie={{ record[0]}}"> Eventos de reposicao</a></td>
+                <td><a href="ivm-evento-reposicao?num_serie={{ record[0]}}"> Eventos de reposicao</a></td>
+                <td><a href="ivm-evento-reposicao-overview?num_serie={{ record[0]}}"> Eventos de reposicao resumo</a></td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
-        
+
 {% else %}
     <p> Erro: ao obter dados da base de dados!</p>
 {% endif %}
