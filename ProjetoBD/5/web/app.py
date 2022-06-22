@@ -179,6 +179,68 @@ def retalhistas_remove():
 #c
 #Listar todos os eventos de reposição de uma IVM, apresentando o número de unidades repostas por categoria de produto 
 
+@app.route("/IVM")
+def list_ivm():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        query = "SELECT * FROM ivm;"
+        cursor.execute(query)
+        return render_template("ivms.html", cursor=cursor)
+    except Exception as e:
+        return str(e)  # Renders a page with the error.
+    finally:
+        cursor.close()
+        dbConn.close()
+
+
+@app.route("/ivm-evento-de-reposicao")
+def ivm_repo_event():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        params = request.args
+        num_serie_ivm = params.get('num_serie')
+        query = 'SELECT *\
+            FROM evento_reposicao\
+            WHERE num_serie = %s;'
+        data = (num_serie_ivm)
+        cursor.execute(query, data)
+        return render_template("ivm-evento-reposicao.html",cursor=cursor)
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+        dbConn.close()
+
+@app.route("/ivm-evento-reposicao-overview")
+def ivm_repo_event_overview():
+    dbConn = None
+    cursor = None
+    try:
+        dbConn = psycopg2.connect(DB_CONNECTION_STRING)
+        cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        params = request.args
+        num_serie_ivm = params.get('num_serie')
+        num_serie_ivm = params.get('num_serie')
+        query = "SELECT cat, SUM(unidades)\
+                 FROM evento_reposicao natural join produto\
+                 WHERE num_serie = %d \
+                 GROUP BY cat;"
+        data = (num_serie_ivm)
+        cursor.execute(query, data)
+        return render_template("ivm-evento-reposicao-overview.html",cursor=cursor)
+    except Exception as e:
+        return str(e)
+    finally:
+        cursor.close()
+        dbConn.close()
+    
+
 
 
 CGIHandler().run(app)

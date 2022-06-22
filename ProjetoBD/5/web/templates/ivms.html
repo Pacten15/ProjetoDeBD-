@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>List ivms - Flask</title>
+</head>
+<body style="padding:20px">
+{% if cursor %}
+    <table border="2px">
+        <thead>
+            <tr>
+                <th>num_serie</th>
+                <th>fabricante</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in cursor %}
+            <tr>
+                <td>{{ record[0] }}</td>
+                <td>{{ record[1] }}</td>
+                <td><a href="ivm-evento-de-reposicao?num_serie={{ record[0]}}"> Eventos de reposicao</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+{% else %}
+    <p> Erro: ao obter dados da base de dados!</p>
+{% endif %}
+</body>
+</html>
