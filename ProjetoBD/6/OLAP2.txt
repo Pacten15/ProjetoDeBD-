@@ -1,5 +1,5 @@
-SELECT concelho, categoria, dia_semana, unidades
+SELECT concelho, cat, dia_semana, unidades
 FROM vendas
-WHERE distrito = Lisboa
+WHERE distrito = 'Lisboa'
 GROUP BY
-ROLLUP (concelho,categoria, dia_semana);
+ROLLUP (concelho,cat, dia_semana, unidades);
