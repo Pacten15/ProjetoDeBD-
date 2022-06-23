@@ -83,12 +83,17 @@ def categorias__remove():
         cursor = dbConn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         param = request.args
         nome = param.get('nome')
-        query = "DELETE FROM categoria WHERE nome = '{s}'; \
-                 DELETE FROM produto WHERE cat = '{s}';\
-                 DELETE FROM tem_outra WHERE categoria='{s}';\
-                 DELETE FROM tem_outra WHERE super_categoria='{s}';\
-                 DELETE FROM prateleira WHERE nome='{s}';\
-                 DELETE FROM responsavel_por WHERE nome_cat ='{s}';".format(s=nome)
+        query = "DELETE FROM evento_reposicao WHERE ean in (SELECT ean FROM produto WHERE cat = '{s}'); \
+                DELETE FROM responsavel_por WHERE nome_cat ='{s}'; \
+                DELETE FROM planograma WHERE ean in (SELECT ean FROM produto WHERE cat = '{s}'); \
+                DELETE FROM prateleira WHERE nome ='{s}'; \
+                DELETE FROM tem_categoria WHERE nome ='{s}'; \
+                DELETE FROM produto WHERE cat = '{s}'; \
+                DELETE FROM tem_outra WHERE categoria='{s}'; \
+                DELETE FROM categoria_simples WHERE nome = '{s}'; \
+                DELETE FROM tem_outra WHERE super_categoria='{s}'; \
+                DELETE FROM super_categoria WHERE nome = '{s}'; \
+                DELETE FROM categoria WHERE nome = '{s}';".format(s=nome)
         data = (nome)
         cursor.execute(query, data)
         return query
