@@ -77,7 +77,9 @@ CREATE TABLE instalada_em (
     local VARCHAR(255) NOT NULL,
     UNIQUE(num_serie, fabricante),
     PRIMARY KEY(num_serie, fabricante),
+    FOREIGN KEY(num_serie, fabricante) REFERENCES IVM(num_serie,fabricante),
     FOREIGN KEY(local) REFERENCES ponto_de_retalho(nome));
+    
 --
 --
 CREATE TABLE prateleira (
