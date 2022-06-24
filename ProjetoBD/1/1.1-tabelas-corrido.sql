@@ -72,7 +72,7 @@ CREATE TABLE ponto_de_retalho (
 --
 --
 CREATE TABLE instalada_em (
-    num_serie VARCHAR(255) NOT NULL,
+    num_serie SERIAL NOT NULL,
     fabricante VARCHAR(255) NOT NULL,
     local VARCHAR(255) NOT NULL,
     UNIQUE(num_serie, fabricante),
